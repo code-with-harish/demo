@@ -1,10 +1,9 @@
-const express = require("express");
-const fs = require("fs");
-const path = require("path");
-const router = express.Router();
+import fs from 'fs';
+import path from 'path';
 
-const foodsPath = path.join(__dirname, "../data/foods.json");
-const foods = JSON.parse(fs.readFileSync(foodsPath, "utf8"));
+// Load food data
+const foodsPath = path.join(process.cwd(), 'data', 'foods.json');
+const foods = JSON.parse(fs.readFileSync(foodsPath, 'utf8'));
 
 // Simple rule-based filter
 function filterFoods(patient) {
@@ -45,16 +44,33 @@ function generateDietPlan(patient) {
   return plan;
 }
 
-// POST /api/diet
-router.post("/", (req, res) => {
+export default function handler(req, res) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   const patient = req.body;
 
   if (!patient || !patient.prakriti) {
     return res.status(400).json({ error: "Missing patient profile" });
   }
 
-  const dietPlan = generateDietPlan(patient);
-  res.json({ patient, dietPlan });
-});
-
-module.exports = router;
+  try {
+    const dietPlan = generateDietPlan(patient);
+    res.status(200).json({ patient, dietPlan });
+  } catch (error) {
+    console.error('Error generating diet plan:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
