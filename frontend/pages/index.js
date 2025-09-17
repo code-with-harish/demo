@@ -9,10 +9,12 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-green-400 to-blue-500 text-white">
-      <h1 className="text-5xl font-extrabold mb-6 text-center">Ayur Diet</h1>
-      <p className="text-lg text-center mb-8 max-w-md">
-        Discover your personalized Ayurvedic diet plan tailored to your health and
-        preferences.
+      <h1 className="text-5xl font-extrabold mb-4 text-center">Ayur Diet</h1>
+      <h2 className="text-xl font-medium mb-6 text-center text-green-100">
+        Personalized Ayurvedic diet plans based on your Prakriti and preferences
+      </h2>
+      <p className="text-lg text-center mb-8 max-w-lg">
+        Ancient wisdom meets modern technology. Get instant, personalized diet recommendations based on Ayurvedic principles and your health conditions.
       </p>
       <button
         onClick={handleStart}

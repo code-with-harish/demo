@@ -4,11 +4,11 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Patient() {
   const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    condition: "",
-    prakriti: "Vata",
+    name: "Priya Sharma",
+    age: "28",
+    gender: "Female",
+    condition: "Diabetes",
+    prakriti: "Pitta",
     preferences: "veg",
   });
   const [loading, setLoading] = useState(false);
@@ -25,6 +25,9 @@ export default function Patient() {
     setLoading(true);
 
     try {
+      // Small delay for demo purposes to show loading spinner
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
       const response = await fetch("/api/diet", {
         method: "POST",
         headers: {

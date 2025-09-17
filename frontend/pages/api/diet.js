@@ -8,9 +8,12 @@ const foods = JSON.parse(fs.readFileSync(foodsPath, 'utf8'));
 // Simple rule-based filter
 function filterFoods(patient) {
   return foods.filter((food) => {
+    // Filter by medical condition
     if (patient.condition && patient.condition.toLowerCase().includes("diabetes")) {
       if (food.nutrients.glycemicIndex > 55) return false;
     }
+    
+    // Filter by Prakriti (constitution)
     if (patient.prakriti === "Pitta") {
       if (food.ayurveda.virya === "heating") return false;
     }
@@ -21,23 +24,37 @@ function filterFoods(patient) {
       if (food.ayurveda.virya === "cooling" && food.ayurveda.guna === "dry")
         return false;
     }
+    
     return true;
   });
 }
 
 function generateDietPlan(patient) {
   const filteredFoods = filterFoods(patient);
+  
+  // Separate foods by meal type
+  const breakfastFoods = filteredFoods.filter(food => 
+    food.mealType.includes("breakfast"));
+  const lunchFoods = filteredFoods.filter(food => 
+    food.mealType.includes("lunch"));
+  const dinnerFoods = filteredFoods.filter(food => 
+    food.mealType.includes("dinner"));
 
   const plan = [];
   const days = 7;
-  const meals = ["Breakfast", "Lunch", "Dinner"];
 
   for (let d = 1; d <= days; d++) {
     const dayPlan = { day: `Day ${d}`, meals: {} };
-    meals.forEach((meal, idx) => {
-      const food = filteredFoods[(d * idx) % filteredFoods.length];
-      dayPlan.meals[meal] = food ? food.name : "Simple Khichdi";
-    });
+    
+    // Use different logic for each meal to create variety
+    const breakfastIndex = (d - 1) % breakfastFoods.length;
+    const lunchIndex = (d + 1) % lunchFoods.length;
+    const dinnerIndex = (d + 2) % dinnerFoods.length;
+    
+    dayPlan.meals.Breakfast = breakfastFoods[breakfastIndex]?.name || "Oats with Almonds";
+    dayPlan.meals.Lunch = lunchFoods[lunchIndex]?.name || "Brown Rice with Dal";
+    dayPlan.meals.Dinner = dinnerFoods[dinnerIndex]?.name || "Quinoa with Vegetables";
+    
     plan.push(dayPlan);
   }
 
