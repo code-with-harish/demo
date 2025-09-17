@@ -25,7 +25,7 @@ export default function Patient() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/diet", {
+      const response = await fetch("/api/diet", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
