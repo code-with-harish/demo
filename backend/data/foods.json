@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Brown Rice",
+    "category": "grain",
+    "nutrients": {
+      "calories": 110,
+      "protein": 2.6,
+      "carbs": 23,
+      "fat": 0.9,
+      "glycemicIndex": 55
+    },
+    "ayurveda": {
+      "rasa": "sweet",
+      "virya": "cooling",
+      "guna": "light",
+      "doshaEffect": ["Pitta", "Kapha"]
+    }
+  },
+  {
+    "id": 2,
+    "name": "Spinach",
+    "category": "vegetable",
+    "nutrients": {
+      "calories": 23,
+      "protein": 2.9,
+      "carbs": 3.6,
+      "fat": 0.4,
+      "glycemicIndex": 15
+    },
+    "ayurveda": {
+      "rasa": "astringent",
+      "virya": "cooling",
+      "guna": "light",
+      "doshaEffect": ["Pitta"]
+    }
+  },
+  {
+    "id": 3,
+    "name": "Paneer",
+    "category": "dairy",
+    "nutrients": {
+      "calories": 265,
+      "protein": 18,
+      "carbs": 6,
+      "fat": 20,
+      "glycemicIndex": 30
+    },
+    "ayurveda": {
+      "rasa": "sweet",
+      "virya": "heating",
+      "guna": "heavy",
+      "doshaEffect": ["Vata"]
+    }
+  },
+  {
+    "id": 4,
+    "name": "Apple",
+    "category": "fruit",
+    "nutrients": {
+      "calories": 52,
+      "protein": 0.3,
+      "carbs": 14,
+      "fat": 0.2,
+      "glycemicIndex": 38
+    },
+    "ayurveda": {
+      "rasa": "sweet",
+      "virya": "cooling",
+      "guna": "light",
+      "doshaEffect": ["Pitta", "Vata"]
+    }
+  }
+]
